@@ -9,6 +9,7 @@ import com.example.jimmy_polancoap2_p1.domain.repository.HuacalRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -18,20 +19,22 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(appContext: Context): AppDatabase =
-        Room.databaseBuilder(
+    fun provideDatabase(
+        @ApplicationContext appContext: Context
+    ): AppDatabase {
+        return Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
-            "huacales_db"
+            "huacal_db"
         ).build()
+    }
 
     @Provides
-    fun provideHuacalDao(db: AppDatabase): HuacalDao =
-        db.HuacalDao()
+    fun provideHuacalDao(db: AppDatabase): HuacalDao = db.HuacalDao()
 
     @Provides
     @Singleton
-    fun provideHuacalRepository(
-        dao: HuacalDao
-    ): HuacalRepository = HuacalRepositoryImpl(dao)
+    fun provideHuacalRepository(dao: HuacalDao): HuacalRepository {
+        return HuacalRepositoryImpl(dao)
+    }
 }
