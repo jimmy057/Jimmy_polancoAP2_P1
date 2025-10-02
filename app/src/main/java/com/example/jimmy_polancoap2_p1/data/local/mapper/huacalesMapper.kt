@@ -1,21 +1,21 @@
 package com.example.jimmy_polancoap2_p1.data.local.mapper
 
 import com.example.jimmy_polancoap2_p1.data.local.entities.HuacalEntity
+import com.example.jimmy_polancoap2_p1.domain.model.Huacal
 
-fun HuacalEntity.toDomain(): HuacalEntity =
-    HuacalEntity(
-        idEntrada = idEntrada,
-        fecha = fecha,
-        nombreCliente = nombreCliente,
-        cantidad = cantidad,
-        precio = precio
+fun HuacalEntity.toDomain(): Huacal =
+    Huacal(
+        id = this.idEntrada,
+        fecha = this.fecha,
+        cliente = this.nombreCliente,
+        cantidad = this.cantidad,
+        precio = this.precio
     )
-
-fun HuacalEntity.toEntity(): HuacalEntity =
+fun Huacal.toEntity(): HuacalEntity =
     HuacalEntity(
-        idEntrada = idEntrada,
-        fecha = fecha,
-        nombreCliente = nombreCliente,
-        cantidad = cantidad,
-        precio = precio
+        idEntrada = this.id,
+        fecha = this.fecha,
+        nombreCliente = this.cliente,
+        cantidad = this.cantidad,
+        precio = this.precio
     )
