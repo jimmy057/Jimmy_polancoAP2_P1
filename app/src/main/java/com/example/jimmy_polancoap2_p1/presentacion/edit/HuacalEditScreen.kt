@@ -50,7 +50,7 @@ fun HuacalEditScreen(
     }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(if (huacalId == null) "Agregar Huacal" else "Editar Huacal") }) },
+        topBar = { TopAppBar(title = { Text(if (huacalId == null) "Agregar Entrada" else "Editar Entrada") }) },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
         Column(
