@@ -3,7 +3,6 @@ package com.example.jimmy_polancoap2_p1.data.repository
 import com.example.jimmy_polancoap2_p1.data.local.dao.HuacalDao
 import com.example.jimmy_polancoap2_p1.data.local.mapper.toDomain
 import com.example.jimmy_polancoap2_p1.data.local.mapper.toEntity
-import com.example.jimmy_polancoap2_p1.data.local.entities.HuacalEntity
 import com.example.jimmy_polancoap2_p1.domain.model.Huacal
 import com.example.jimmy_polancoap2_p1.domain.repository.HuacalRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,18 +13,16 @@ class HuacalRepositoryImpl(
 ) : HuacalRepository {
 
     override fun observeEntradas(): Flow<List<Huacal>> =
-        dao.observeAll().map { list -> list.map { it.toDomain() } }
+        dao.observeEntradas().map { list -> list.map { it.toDomain() } }
 
     override suspend fun getEntrada(id: Int): Huacal? =
         dao.getById(id)?.toDomain()
 
-    override suspend fun upsert(entrada: Huacal): Int {
-        dao.upsert(entrada.toEntity())
-        return entrada.idEntrada
-    }
+    override suspend fun upsert(entrada: Huacal): Int =
+        dao.upsert(entrada.toEntity()).toInt()
 
     override suspend fun delete(id: Int) {
-        dao.deleteById(id)
+        dao.getById(id)?.let { dao.eliminar(it) }
     }
 
     override suspend fun buscarPorCliente(nombre: String): List<Huacal> =
@@ -34,4 +31,5 @@ class HuacalRepositoryImpl(
     override suspend fun existePorCliente(nombre: String): Boolean =
         dao.existsByCliente(nombre)
 }
+
 
